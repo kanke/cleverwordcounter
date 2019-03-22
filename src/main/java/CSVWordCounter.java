@@ -18,21 +18,24 @@ public class CSVWordCounter {
         try {
             errorPrintStream = new PrintStream("csvErrorLog.txt");
             CSVReader reader = new CSVReader(new FileReader(fileName));
-            String[] nextLine = reader.readNext();
-            if (nextLine == null) {
+            String[] nextLine;
+
+            if (reader.getLinesRead() == 0L) {
                 System.out.println("\nSorry! this file is empty O_O \n");
             }
-            while (nextLine != null) {
-                Arrays.stream(nextLine).forEach(csvLine -> {
-                    String[] words = csvLine.split(",");
-                    for (int i = 0; i < words.length; i++) {
-                        if (wordMap.containsKey(words[i])) {
-                            wordMap.put(words[i], wordMap.get(words[i]) + 1);
-                        } else {
-                            wordMap.put(words[i], 1);
+            while ((nextLine = reader.readNext()) != null) {
+                if (nextLine != null) {
+                    Arrays.stream(nextLine).forEach(csvLine -> {
+                        String[] words = csvLine.split(",");
+                        for (int i = 0; i < words.length; i++) {
+                            if (wordMap.containsKey(words[i])) {
+                                wordMap.put(words[i], wordMap.get(words[i]) + 1);
+                            } else {
+                                wordMap.put(words[i], 1);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
 
             reader.close();
