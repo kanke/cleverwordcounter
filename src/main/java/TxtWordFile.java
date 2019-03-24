@@ -22,7 +22,7 @@ public class TxtWordFile implements WordFile {
             boolean hasNext = scanner.hasNext();
 
             if (!hasNext) {
-                System.out.println("\nSorry! this file is empty O_O \n");
+                System.out.println("\nSorry! this txt file is empty O_O \n");
             }
 
             while (scanner.hasNext()) {

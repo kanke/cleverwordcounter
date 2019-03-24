@@ -27,7 +27,7 @@ public class CSVWordFile implements WordFile {
             String[] nextLine;
 
             if (reader.readNext() == null) {
-                System.out.println("\nSorry! this file is empty O_O \n");
+                System.out.println("\nSorry! this csv file is empty O_O \n");
             }
             while ((nextLine = reader.readNext()) != null) {
                 if (nextLine != null) {

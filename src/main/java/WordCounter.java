@@ -14,19 +14,17 @@ public class WordCounter {
         String fileName = scan.next();
         WordFile wordFile = wordFileFactory.getWordCount(fileName);
 
-        if (wordFile != null) {
-            printWordCount(wordFile.countWords());
-        } else {
-            System.out.println("Unsupported file type -_- ");
-        }
+        printWordCount(wordFile);
 
     }
 
-    private static void printWordCount(Map<String, Integer> wordMap) {
-        if (!wordMap.isEmpty()) {
-            wordMap.entrySet().stream()
+    protected static void printWordCount(WordFile wordFile) {
+        if (wordFile != null) {
+            wordFile.countWords().entrySet().stream()
                     .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
-                    .forEachOrdered(x -> System.out.println("\n" + x.getKey() + ": " + x.getValue()));
+                    .forEachOrdered(wordEntry -> System.out.println("\n" + wordEntry.getKey() + ": " + wordEntry.getValue()));
+        } else {
+            System.out.println("Unsupported file type -_- ");
         }
     }
 }
