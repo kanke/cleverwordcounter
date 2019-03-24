@@ -11,19 +11,18 @@ A Java command-line application that takes a path to a file as an argument and p
 
 > Navigate to target directory of project i.e cd /path-to-project/target
 
-> Run java -jar clever-word-counter-1.0-SNAPSHOT.jar
+> Run `java -jar clever-word-counter-1.0-SNAPSHOT.jar`
 
 ##  Sample usages ##
 
 ###  Using MAC OS Terminal ###
 
-> cd /Users/kanke/Documents/cleverwordcounter/target
+> cd `/Users/kanke/Documents/cleverwordcounter/target`
 
-> java -jar clever-word-counter-1.0-SNAPSHOT.jar
+> `java -jar clever-word-counter-1.0-SNAPSHOT.jar`
 
-![alt text][logo]
+![Imgur](https://i.imgur.com/jYWZDyY.png)
 
-[logo]: https://imgur.com/jYWZDyY "example"
 
 ##  Supported Files ##
 
@@ -33,7 +32,7 @@ A Java command-line application that takes a path to a file as an argument and p
 
 > * Txt
 
-##  Future Supported Files, corssing fingers! ##
+##  Future Supported Files, crossing fingers! ##
 
 > * XML
 
