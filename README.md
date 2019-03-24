@@ -24,6 +24,7 @@ The results are consistent between two files which contain the exact same words 
 
 ![Imgur](https://i.imgur.com/jYWZDyY.png)
 
+![Imgur](https://i.imgur.com/6Fxq6ie.png)
 
 ##  Supported Files ##
 
