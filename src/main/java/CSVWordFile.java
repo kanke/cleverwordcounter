@@ -8,10 +8,16 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CSVWordCounter {
+public class CSVWordFile implements WordFile {
 
-    protected static Map<String, Integer> csvWordCounter(String fileName) {
+    private String fileName;
 
+    public CSVWordFile(String fileName) {
+        this.fileName = fileName;
+    }
+
+    @Override
+    public Map<String, Integer> countWords() {
         Map<String, Integer> wordMap = new HashMap<>();
         PrintStream errorPrintStream = null;
 
@@ -20,7 +26,7 @@ public class CSVWordCounter {
             CSVReader reader = new CSVReader(new FileReader(fileName));
             String[] nextLine;
 
-            if (reader.getLinesRead() == 0L) {
+            if (reader.readNext() == null) {
                 System.out.println("\nSorry! this file is empty O_O \n");
             }
             while ((nextLine = reader.readNext()) != null) {
@@ -51,5 +57,4 @@ public class CSVWordCounter {
 
         return wordMap;
     }
-
 }

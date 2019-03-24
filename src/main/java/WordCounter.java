@@ -1,38 +1,26 @@
-
-import org.apache.commons.io.FilenameUtils;
-import java.util.*;
+import java.util.Map;
+import java.util.Scanner;
 
 public class WordCounter {
 
-    private static final String CSV = "csv";
-    private static final String TXT = "txt";
-    private static final String JSON = "json";
-
     public static void main(String[] args) {
-        System.out.println("\n\n***** ^_^ Welcome to Clever Word Counter ^_^ ******\n");
 
-        System.out.println("Kindly enter a file path below to continue #^_^# :");
+        System.out.println("\n\n***** ^_^ Welcome to Clever WordFile Counter ^_^ ******\n");
 
+        System.out.println("Kindly enter a wordFile path below to continue #^_^# :");
+
+        WordFileFactory wordFileFactory = new WordFileFactory();
         Scanner scan = new Scanner(System.in);
         String fileName = scan.next();
+        WordFile wordFile = wordFileFactory.getWordCount(fileName);
 
-        switch (FilenameUtils.getExtension(fileName)) {
-            case CSV:
-                printWordCount(CSVWordCounter.csvWordCounter(fileName));
-                break;
-            case TXT:
-                printWordCount(TxtWordCounter.txtWordCounter(fileName));
-                break;
-            case JSON:
-                printWordCount(TxtWordCounter.txtWordCounter(fileName));
-                break;
-            default:
-                System.out.println("Unsupported file type -_- ");
-                break;
+        if (wordFile != null) {
+            printWordCount(wordFile.countWords());
+        } else {
+            System.out.println("Unsupported file type -_- ");
         }
 
     }
-
 
     private static void printWordCount(Map<String, Integer> wordMap) {
         if (!wordMap.isEmpty()) {

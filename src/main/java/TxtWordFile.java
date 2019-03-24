@@ -4,13 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class TxtWordCounter {
+public class TxtWordFile implements WordFile {
 
-    protected static Map<String, Integer> txtWordCounter(String fileName) {
+    private String fileName;
+
+    public TxtWordFile(String fileName) {
+        this.fileName = fileName;
+    }
+
+    @Override
+    public Map<String, Integer> countWords() {
 
         Map<String, Integer> wordMap = new HashMap<>();
         Scanner scanner;
-
         try {
             scanner = new Scanner(new File(fileName));
             boolean hasNext = scanner.hasNext();
@@ -19,7 +25,7 @@ public class TxtWordCounter {
                 System.out.println("\nSorry! this file is empty O_O \n");
             }
 
-            while (hasNext) {
+            while (scanner.hasNext()) {
                 String word = scanner.next();
 
                 if (wordMap.containsKey(word)) {
@@ -38,3 +44,4 @@ public class TxtWordCounter {
         return wordMap;
     }
 }
+
