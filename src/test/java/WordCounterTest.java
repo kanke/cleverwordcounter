@@ -63,6 +63,43 @@ public class WordCounterTest {
     }
 
     @Test
+    public void shouldCountNumberOfWordsInTxtFileRegardlessOfOrder(){
+
+        //Testing two files with same frequency of words but the words appear in different order
+        String fileName = getFilePath("actor.txt");
+        WordFileFactory wordFileFactory = new WordFileFactory();
+        WordFile wordFile = wordFileFactory.getWordCount(fileName);
+
+        WordCounter.printWordCount(wordFile);
+
+        String expectedFile1 = "\nL: 3\n" +
+                "\n" +
+                "Fire: 1\n" +
+                "\n" +
+                "samuel: 1\n" +
+                "\n" +
+                "Jackson: 1\n";
+        assertEquals(expectedFile1, outContent.toString());
+
+        String fileName2 = getFilePath("actor2.txt");
+        WordFileFactory wordFileFactory2 = new WordFileFactory();
+        WordFile wordFile2 = wordFileFactory2.getWordCount(fileName2);
+
+        WordCounter.printWordCount(wordFile2);
+
+        String expectedFile2 = "\nL: 3\n" +
+                "\n" +
+                "Fire: 1\n" +
+                "\n" +
+                "samuel: 1\n" +
+                "\n" +
+                "Jackson: 1\n";
+        assertEquals(expectedFile1 + expectedFile2, outContent.toString());
+
+        assertEquals(expectedFile1, expectedFile2);
+    }
+
+    @Test
     public void shouldNotCountNumberOfWordsForUnsupportedFile(){
 
         String fileName = getFilePath("sad.xml");

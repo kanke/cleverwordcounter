@@ -1,5 +1,6 @@
 #  :bowtie: About this application #
-A Java command-line application that takes a path to a file as an argument and prints a word count of its contents. The output consists of a line for each word, with the number of its occurrences in the file. It is sorted by the number of occurrences starting with the most frequent word complete with unit tests
+A Java command-line application that takes a path to a file as an argument and prints a word count of its contents. The output consists of a line for each word, with the number of its occurrences in the file. It is sorted by the number of occurrences starting with the most frequent word complete with unit tests.
+The results are consistent between two files which contain the exact same words in the same frequency but in a different order.
 
 ##  To run this project ##
 
@@ -36,5 +37,7 @@ A Java command-line application that takes a path to a file as an argument and p
 
 > * XML
 
-##  Common Errors and How to Solve Them ##
+##  Original Problem Statement ##
+[Link to problem statement/requirements doc](https://docs.google.com/document/d/1M-adS6W6YRGPhUmFRmCi3-4l5tYjjJs1I1CTyVorFHg/edit?usp=sharing)
 
+##  Common Errors With Running File and How to Solve Them ##
