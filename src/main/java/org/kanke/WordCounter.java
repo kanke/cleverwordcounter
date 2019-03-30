@@ -1,6 +1,7 @@
 package org.kanke;
 
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.parser.ParseException;
 import org.kanke.services.WordFile;
 import org.kanke.services.WordFileFactory;
 
@@ -33,6 +34,11 @@ public class WordCounter {
             wordFile.countWords().entrySet().stream()
                     .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                     .forEachOrdered(wordEntry -> System.out.println("\n" + wordEntry.getKey() + ": " + wordEntry.getValue()));
+        } catch (ParseException ex) {
+
+            //add logger to file
+            log.error(String.valueOf(ex));
+            System.out.println("\nError parsing file, the error has been logged. please check file and try again later -_-\n");
         } catch (NoSuchFileException ex) {
 
             //add logger to file

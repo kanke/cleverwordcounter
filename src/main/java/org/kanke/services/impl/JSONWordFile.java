@@ -1,11 +1,11 @@
 package org.kanke.services.impl;
 
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.kanke.services.WordFile;
 
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -15,25 +15,27 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
 
-public class TxtWordFile implements WordFile {
+public class JSONWordFile implements WordFile {
 
     private String fileName;
 
-    public TxtWordFile(String fileName) {
+    public JSONWordFile(String fileName) {
         this.fileName = fileName;
     }
 
     @Override
-    public Map<String, Long> countWords() throws IOException {
+    public Map<String, Long> countWords() throws IOException, ParseException {
+        JSONParser jsonParser = new JSONParser();
 
-        String contents = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
+        FileReader reader = new FileReader(fileName);
+        Map<String, Long> wordToFrequencyCount = new HashMap<>();
+
+        String jsonString = jsonParser.parse(reader).toString();
 
         //Strip special characters, empty spaces and get words
-        List<String> words = Arrays.asList(contents.split("[\\P{L}]+")).stream()
+        List<String> words = Arrays.asList(jsonString.split("[\\P{L}]+")).stream()
                 .filter(word -> !word.equals(""))
                 .collect(Collectors.toList());
-
-        Map<String, Long> wordToFrequencyCount = new HashMap<>();
 
         if (words.isEmpty()) {
             System.out.println("\nSorry! this txt file is empty O_O \n");
@@ -43,4 +45,5 @@ public class TxtWordFile implements WordFile {
 
         return wordToFrequencyCount;
     }
+
 }

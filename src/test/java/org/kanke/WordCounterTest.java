@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class WordCounterTest {
 
@@ -26,9 +27,9 @@ public class WordCounterTest {
     }
 
     @Test
-    public void shouldCountNumberOfWordsInCSVFile(){
+    public void shouldCountNumberOfWordsInCSVFile() {
 
-       String fileName = getFilePath("countries.csv");
+        String fileName = getFilePath("countries.csv");
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 
@@ -52,7 +53,7 @@ public class WordCounterTest {
     }
 
     @Test
-    public void shouldCountNumberOfWordsInCSVFileWithSpecialCharacters(){
+    public void shouldCountNumberOfWordsInCSVFileWithSpecialCharacters() {
 
         String fileName = getFilePath("specialcharacters.csv");
         WordFileFactory wordFileFactory = new WordFileFactory();
@@ -63,11 +64,32 @@ public class WordCounterTest {
         assertEquals("", outContent.toString());
     }
 
+    @Test
+    public void shouldCountNumberOfWordsInJSONFile() {
+
+        String fileName = getFilePath("glossary.json");
+        WordFileFactory wordFileFactory = new WordFileFactory();
+        WordFile wordFile = wordFileFactory.getWordFile(fileName);
+
+        WordCounter.printProgramOutput(wordFile);
+
+        assertTrue(outContent.toString().contains("SGML: 3\n" +
+                "\n" +
+                "markup: 3\n" +
+                "\n" +
+                "title: 2\n" +
+                "\n" +
+                "glossary: 2\n" +
+                "\n" +
+                "A: 1\n" +
+                "\n" +
+                "GlossSee: 1"));
+    }
 
     @Test
-    public void shouldCountNumberOfWordsInTXTFileWithSpecialCharacters(){
+    public void shouldCountNumberOfWordsInTXTFileWithSpecialCharacters() {
 
-        String fileName = getFilePath("wrong.txt");
+        String fileName = getFilePath("specialcharacters.txt");
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 
@@ -75,13 +97,11 @@ public class WordCounterTest {
 
         assertEquals("\nt: 1\n" +
                 "\n" +
-                "test: 1\n" +
-                "\n" +
                 "varA: 1\n", outContent.toString());
     }
 
     @Test
-    public void shouldCountNumberOfWordsInTxtFile(){
+    public void shouldCountNumberOfWordsInTxtFile() {
 
         String fileName = getFilePath("actor.txt");
         WordFileFactory wordFileFactory = new WordFileFactory();
@@ -100,7 +120,7 @@ public class WordCounterTest {
     }
 
     @Test
-    public void shouldCountNumberOfWordsInTxtFileRegardlessOfOrder(){
+    public void shouldCountNumberOfWordsInTxtFileRegardlessOfOrder() {
 
         //Testing two files with same frequency of words but the words appear in different order
         String fileName = getFilePath("actor.txt");
@@ -137,7 +157,7 @@ public class WordCounterTest {
     }
 
     @Test
-    public void shouldThrowIllegalArgumentErrorForUnsupportedFile(){
+    public void shouldThrowIllegalArgumentErrorForUnsupportedFile() {
 
         exception.expect(IllegalArgumentException.class);
 
@@ -151,7 +171,19 @@ public class WordCounterTest {
     }
 
     @Test
-    public void shouldNotCountNumberOfWordsInCSVFileWithSpecialCharacters(){
+    public void shouldNOTCountNumberOfWordsInJSONFileWithSpecialCharacters() {
+
+        String fileName = getFilePath("specialcharacters.json");
+        WordFileFactory wordFileFactory = new WordFileFactory();
+        WordFile wordFile = wordFileFactory.getWordFile(fileName);
+
+        WordCounter.printProgramOutput(wordFile);
+
+        assertEquals("\nError parsing file, the error has been logged. please check file and try again later -_-\n\n", outContent.toString());
+    }
+
+    @Test
+    public void shouldNotCountNumberOfWordsInCSVFileWithSpecialCharacters() {
 
         String fileName = getFilePath("wrong.csv");
         WordFileFactory wordFileFactory = new WordFileFactory();
@@ -163,7 +195,7 @@ public class WordCounterTest {
     }
 
     @Test
-    public void shouldNotCountNumberOfWordsForWrongFilePathCSV(){
+    public void shouldNotCountNumberOfWordsForWrongFilePathCSV() {
 
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile("zero.csv");
@@ -174,7 +206,7 @@ public class WordCounterTest {
     }
 
     @Test
-    public void shouldNotCountNumberOfWordsForWrongFilePathTXT(){
+    public void shouldNotCountNumberOfWordsForWrongFilePathTXT() {
 
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile("'\'zero.txt");
@@ -185,7 +217,7 @@ public class WordCounterTest {
     }
 
     @Test
-    public void shouldNotCountNumberOfWordsForWrongEmptyTxtFile(){
+    public void shouldNotCountNumberOfWordsForWrongEmptyTxtFile() {
 
         String fileName = getFilePath("emptytxt.txt");
         WordFileFactory wordFileFactory = new WordFileFactory();
@@ -197,7 +229,7 @@ public class WordCounterTest {
     }
 
     @Test
-    public void shouldNotCountNumberOfWordsForWrongEmptyCSVFile(){
+    public void shouldNotCountNumberOfWordsForWrongEmptyCSVFile() {
 
         String fileName = getFilePath("emptycsv.csv");
         WordFileFactory wordFileFactory = new WordFileFactory();
