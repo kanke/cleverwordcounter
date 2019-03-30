@@ -1,12 +1,13 @@
+package org.kanke;
+
 import org.apache.commons.io.FilenameUtils;
 
 public class WordFileFactory {
 
     private static final String CSV = "csv";
     private static final String TXT = "txt";
-    private static final String JSON = "json";
 
-    public WordFile getWordCount(String fileName) {
+    WordFile getWordFile(String fileName) throws IllegalArgumentException {
 
         String fileExtension = FilenameUtils.getExtension(fileName);
         switch (fileExtension) {
@@ -14,10 +15,8 @@ public class WordFileFactory {
                 return new CSVWordFile(fileName);
             case TXT:
                 return new TxtWordFile(fileName);
-            case JSON:
-                return new JSONWordFile(fileName);
         }
 
-        return null;
+        throw new IllegalArgumentException("Unsupported file type -_-");
     }
 }

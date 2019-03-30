@@ -28,15 +28,17 @@ The results are consistent between two files which contain the exact same words 
 
 ##  Supported Files ##
 
-> * JSON
-
 > * CSV
 
-> * Txt
+> * TXT
 
 ##  Future Supported Files, crossing fingers! ##
 
 > * XML
+
+> * HTML
+
+> * JSON
 
 ##  Original Problem Statement ##
 [Link to problem statement/requirements doc](https://docs.google.com/document/d/1M-adS6W6YRGPhUmFRmCi3-4l5tYjjJs1I1CTyVorFHg/edit?usp=sharing)
