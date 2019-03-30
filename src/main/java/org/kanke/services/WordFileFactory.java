@@ -1,13 +1,15 @@
-package org.kanke;
+package org.kanke.services;
 
 import org.apache.commons.io.FilenameUtils;
+import org.kanke.services.impl.CSVWordFile;
+import org.kanke.services.impl.TxtWordFile;
 
 public class WordFileFactory {
 
     private static final String CSV = "csv";
     private static final String TXT = "txt";
 
-    WordFile getWordFile(String fileName) throws IllegalArgumentException {
+    public WordFile getWordFile(String fileName) throws IllegalArgumentException {
 
         String fileExtension = FilenameUtils.getExtension(fileName);
         switch (fileExtension) {

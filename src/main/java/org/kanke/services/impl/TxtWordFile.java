@@ -1,4 +1,6 @@
-package org.kanke;
+package org.kanke.services.impl;
+
+import org.kanke.services.WordFile;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -16,7 +18,7 @@ public class TxtWordFile implements WordFile {
 
     private String fileName;
 
-    TxtWordFile(String fileName) {
+    public TxtWordFile(String fileName) {
         this.fileName = fileName;
     }
 
@@ -29,7 +31,7 @@ public class TxtWordFile implements WordFile {
 
         Map<String, Long> wordToFrequencyCount = new HashMap<>();
 
-        if (words.size() == 0) {
+        if (words.isEmpty()) {
             System.out.println("\nSorry! this txt file is empty O_O \n");
         } else {
             wordToFrequencyCount = words.stream().collect(groupingBy(group -> group, counting()));

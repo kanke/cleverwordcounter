@@ -1,6 +1,7 @@
-package org.kanke;
+package org.kanke.services.impl;
 
 import com.opencsv.CSVReader;
+import org.kanke.services.WordFile;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,7 +12,7 @@ public class CSVWordFile implements WordFile {
 
     private String fileName;
 
-    CSVWordFile(String fileName) {
+    public CSVWordFile(String fileName) {
         this.fileName = fileName;
     }
 

@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.kanke.services.WordFile;
+import org.kanke.services.WordFileFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -52,7 +54,7 @@ public class WordCounterTest {
     @Test
     public void shouldCountNumberOfWordsInCSVFileWithSpecialCharacters(){
 
-        String fileName = getFilePath("wrong.csv");
+        String fileName = getFilePath("specialcharacters.csv");
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 
@@ -61,17 +63,22 @@ public class WordCounterTest {
         assertEquals("", outContent.toString());
     }
 
-//    @Test
-//    public void shouldCountNumberOfWordsInTXTFileWithSpecialCharacters(){
-//
-//        String fileName = getFilePath("wrong.txt");
-//        org.kanke.WordFileFactory wordFileFactory = new org.kanke.WordFileFactory();
-//        org.kanke.WordFile wordFile = wordFileFactory.getWordFile(fileName);
-//
-//        org.kanke.WordCounter.printProgramOutput(wordFile);
-//
-//        assertEquals("", outContent.toString());
-//    }
+
+    @Test
+    public void shouldCountNumberOfWordsInTXTFileWithSpecialCharacters(){
+
+        String fileName = getFilePath("wrong.txt");
+        WordFileFactory wordFileFactory = new WordFileFactory();
+        WordFile wordFile = wordFileFactory.getWordFile(fileName);
+
+        org.kanke.WordCounter.printProgramOutput(wordFile);
+
+        assertEquals("\nt: 1\n" +
+                "\n" +
+                "test: 1\n" +
+                "\n" +
+                "varA: 1\n", outContent.toString());
+    }
 
     @Test
     public void shouldCountNumberOfWordsInTxtFile(){
@@ -130,7 +137,7 @@ public class WordCounterTest {
     }
 
     @Test
-    public void shouldNotCountNumberOfWordsForUnsupportedFile(){
+    public void shouldThrowIllegalArgumentErrorForUnsupportedFile(){
 
         exception.expect(IllegalArgumentException.class);
 
@@ -141,6 +148,18 @@ public class WordCounterTest {
         WordCounter.printProgramOutput(wordFile);
 
         assertEquals("Unsupported file type -_- \n", outContent.toString());
+    }
+
+    @Test
+    public void shouldNotCountNumberOfWordsInCSVFileWithSpecialCharacters(){
+
+        String fileName = getFilePath("wrong.csv");
+        WordFileFactory wordFileFactory = new WordFileFactory();
+        WordFile wordFile = wordFileFactory.getWordFile(fileName);
+
+        WordCounter.printProgramOutput(wordFile);
+
+        assertEquals("\nProblems reading from file, the error has been logged. please check file and try again later -_-\n\n", outContent.toString());
     }
 
     @Test
@@ -158,11 +177,11 @@ public class WordCounterTest {
     public void shouldNotCountNumberOfWordsForWrongFilePathTXT(){
 
         WordFileFactory wordFileFactory = new WordFileFactory();
-        WordFile wordFile = wordFileFactory.getWordFile("zero.txt");
+        WordFile wordFile = wordFileFactory.getWordFile("'\'zero.txt");
 
         WordCounter.printProgramOutput(wordFile);
 
-        assertEquals("\nCan't find file, please enter a valid path and try again -_-\n\n", outContent.toString());
+        assertEquals("\nDoes this file exist? please enter a valid path and try again -_-\n\n", outContent.toString());
     }
 
     @Test

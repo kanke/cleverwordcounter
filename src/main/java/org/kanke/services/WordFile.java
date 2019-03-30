@@ -1,4 +1,4 @@
-package org.kanke;
+package org.kanke.services;
 
 import java.io.IOException;
 import java.util.Map;
