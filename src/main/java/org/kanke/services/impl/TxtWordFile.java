@@ -28,7 +28,7 @@ public class TxtWordFile implements WordFile {
 
         String contents = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
 
-        //Strip special characters, empty spaces and get words
+        //Strip into words, non letters and delimiters and filter out spaces
         List<String> words = Arrays.asList(contents.split("[\\P{L}]+")).stream()
                 .filter(word -> !word.equals(""))
                 .collect(Collectors.toList());

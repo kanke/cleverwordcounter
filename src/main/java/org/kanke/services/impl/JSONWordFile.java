@@ -32,7 +32,7 @@ public class JSONWordFile implements WordFile {
 
         String jsonString = jsonParser.parse(reader).toString();
 
-        //Strip special characters, empty spaces and get words
+        //Strip into words, non letters and delimiters and filter out spaces
         List<String> words = Arrays.asList(jsonString.split("[\\P{L}]+")).stream()
                 .filter(word -> !word.equals(""))
                 .collect(Collectors.toList());

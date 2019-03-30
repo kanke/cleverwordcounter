@@ -247,4 +247,5 @@ public class WordCounterTest {
         return filePath;
 
     }
+
 }
