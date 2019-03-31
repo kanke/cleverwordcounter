@@ -2,7 +2,7 @@ package org.kanke;
 
 import org.junit.Before;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
 import org.kanke.services.WordFile;
 import org.kanke.services.WordFileFactory;
@@ -11,8 +11,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class WordCounterTest {
 
@@ -35,13 +35,15 @@ public class WordCounterTest {
 
         WordCounter.printProgramOutput(wordFile);
 
-        assertEquals("\nChina: 3\n" +
+        assertEquals("\nCN: 3\n" +
                 "\n" +
-                "CN: 3\n" +
+                "China: 2\n" +
                 "\n" +
                 "JP: 2\n" +
                 "\n" +
                 "Japan: 2\n" +
+                "\n" +
+                "Ch\"ina: 1\n" +
                 "\n" +
                 "AU: 1\n" +
                 "\n" +
@@ -55,7 +57,7 @@ public class WordCounterTest {
     @Test
     public void shouldCountNumberOfWordsInXMLFile() {
 
-        String fileName = getFilePath("pom.xml");
+        String fileName = getFilePath("testpom.xml");
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 

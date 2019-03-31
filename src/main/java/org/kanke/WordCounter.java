@@ -1,24 +1,26 @@
 package org.kanke;
 
-import lombok.extern.slf4j.Slf4j;
-import org.json.simple.parser.ParseException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kanke.services.WordFile;
 import org.kanke.services.WordFileFactory;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.util.Map;
 import java.util.Scanner;
 
-@Slf4j
+
 public class WordCounter {
+
+    private static final Logger logger = LogManager.getLogger(WordCounter.class);
 
     public static void main(String[] args) {
 
         System.out.println("\n\n***** ^_^ Welcome to Clever Word Counter ^_^ ******\n");
 
-        System.out.println("Kindly enter a file path below to continue, supported files are txt, csv, xml and json #^_^# :");
+        System.out.println("Kindly enter a file path below to continue, supported files are txt, csv, xml= and json #^_^# :");
 
         WordFileFactory wordFileFactory = new WordFileFactory();
         Scanner scan = new Scanner(System.in);
@@ -34,30 +36,26 @@ public class WordCounter {
             wordFile.countWords().entrySet().stream()
                     .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                     .forEachOrdered(wordEntry -> System.out.println("\n" + wordEntry.getKey() + ": " + wordEntry.getValue()));
-        } catch (ParseException ex) {
-
-            //add logger to file
-            log.error(String.valueOf(ex));
-            System.out.println("\nError parsing file, the error has been logged. please check file and try again later -_-\n");
         } catch (NoSuchFileException ex) {
 
             //add logger to file
-            log.error(String.valueOf(ex));
+
+            logger.error(ex);
             System.out.println("\nDoes this file exist? please enter a valid path and try again -_-\n");
         } catch (FileNotFoundException ex) {
 
             //add logger to file
-            log.error(String.valueOf(ex));
+            logger.error(ex);
             System.out.println("\nCan't find file, please enter a valid path and try again -_-\n");
         } catch (IOException ex) {
 
             //add logger to file
-            log.error(String.valueOf(ex));
+            logger.error(ex);
             System.out.println("\nProblems reading from file, the error has been logged. please check file and try again later -_-\n");
         } catch (IllegalArgumentException ex) {
 
             //add logger to file
-            log.error(String.valueOf(ex));
+            logger.error(ex);
             System.out.println("Unsupported file type -_- ");
         }
     }
