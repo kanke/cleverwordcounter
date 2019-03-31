@@ -1,15 +1,12 @@
 package org.kanke;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
 import org.kanke.services.WordFile;
 import org.kanke.services.WordFileFactory;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -19,13 +16,6 @@ public class WordCounterTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-
-    @Before
-    public void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
-    }
-
     @Test
     public void shouldCountNumberOfWordsInCSVFile() {
 
@@ -33,7 +23,7 @@ public class WordCounterTest {
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 
-        WordCounter.printProgramOutput(wordFile);
+        String outPutString = WordCounter.getProgramOutput(wordFile);
 
         assertEquals("\nCN: 3\n" +
                 "\n" +
@@ -51,7 +41,8 @@ public class WordCounterTest {
                 "\n" +
                 "Australia: 1\n" +
                 "\n" +
-                "Thailand: 1\n", outContent.toString());
+                "Thailand: 1",
+                outPutString);
     }
 
     @Test
@@ -61,9 +52,9 @@ public class WordCounterTest {
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 
-        WordCounter.printProgramOutput(wordFile);
+        String outPutString = WordCounter.getProgramOutput(wordFile);
 
-        assertTrue(outContent.toString().contains("\n" +
+        assertTrue(outPutString.contains("\n" +
                 "groupId: 24\n" +
                 "\n" +
                 "artifactId: 24\n" +
@@ -84,9 +75,9 @@ public class WordCounterTest {
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 
-        WordCounter.printProgramOutput(wordFile);
+        String outPutString = WordCounter.getProgramOutput(wordFile);
 
-        assertEquals("", outContent.toString());
+        assertEquals("", outPutString);
     }
 
     @Test
@@ -96,9 +87,9 @@ public class WordCounterTest {
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 
-        WordCounter.printProgramOutput(wordFile);
+        String outPutString = WordCounter.getProgramOutput(wordFile);
 
-        assertTrue(outContent.toString().contains("\n" +
+        assertTrue(outPutString.contains("\n" +
                 "SGML: 3\n" +
                 "\n" +
                 "markup: 3\n" +
@@ -121,11 +112,11 @@ public class WordCounterTest {
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 
-        org.kanke.WordCounter.printProgramOutput(wordFile);
+        String outPutString = WordCounter.getProgramOutput(wordFile);
 
         assertEquals("\nt: 1\n" +
                 "\n" +
-                "varA: 1\n", outContent.toString());
+                "varA: 1", outPutString);
     }
 
     @Test
@@ -135,7 +126,7 @@ public class WordCounterTest {
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 
-        WordCounter.printProgramOutput(wordFile);
+        String outPutString = WordCounter.getProgramOutput(wordFile);
 
         assertEquals("\nL: 6\n" +
                 "\n" +
@@ -143,7 +134,7 @@ public class WordCounterTest {
                 "\n" +
                 "samuel: 2\n" +
                 "\n" +
-                "Jackson: 2\n", outContent.toString());
+                "Jackson: 2", outPutString);
 
     }
 
@@ -155,7 +146,7 @@ public class WordCounterTest {
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 
-        WordCounter.printProgramOutput(wordFile);
+        String outPutString = WordCounter.getProgramOutput(wordFile);
 
         String expectedFile1 = "\nL: 6\n" +
                 "\n" +
@@ -163,14 +154,15 @@ public class WordCounterTest {
                 "\n" +
                 "samuel: 2\n" +
                 "\n" +
-                "Jackson: 2\n";
-        assertEquals(expectedFile1, outContent.toString());
+                "Jackson: 2";
+
+        assertEquals(expectedFile1, outPutString);
 
         String fileName2 = getFilePath("actor2.txt");
         WordFileFactory wordFileFactory2 = new WordFileFactory();
         WordFile wordFile2 = wordFileFactory2.getWordFile(fileName2);
 
-        WordCounter.printProgramOutput(wordFile2);
+        String outPutString2 = WordCounter.getProgramOutput(wordFile2);
 
         String expectedFile2 = "\nL: 6\n" +
                 "\n" +
@@ -178,8 +170,9 @@ public class WordCounterTest {
                 "\n" +
                 "samuel: 2\n" +
                 "\n" +
-                "Jackson: 2\n";
-        assertEquals(expectedFile1 + expectedFile2, outContent.toString());
+                "Jackson: 2";
+
+        assertEquals(expectedFile2, outPutString2);
 
         assertEquals(expectedFile1, expectedFile2);
     }
@@ -193,9 +186,9 @@ public class WordCounterTest {
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 
-        WordCounter.printProgramOutput(wordFile);
+        String outPutString = WordCounter.getProgramOutput(wordFile);
 
-        assertEquals("Unsupported file type -_- \n", outContent.toString());
+        assertEquals("Unsupported file type -_- \n", outPutString);
     }
 
     @Test
@@ -205,9 +198,9 @@ public class WordCounterTest {
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 
-        WordCounter.printProgramOutput(wordFile);
+        String outPutString = WordCounter.getProgramOutput(wordFile);
 
-        assertEquals("\nSorry! this file contains no valid words O_O\n\n", outContent.toString());
+        assertEquals("\nSorry! this file contains no valid words O_O: 0", outPutString);
     }
 
     @Test
@@ -217,9 +210,9 @@ public class WordCounterTest {
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 
-        WordCounter.printProgramOutput(wordFile);
+        String outPutString = WordCounter.getProgramOutput(wordFile);
 
-        assertEquals("\nProblems reading from file, the error has been logged. please check file and try again later -_-\n\n", outContent.toString());
+        assertEquals("\nProblems reading from file, the error has been logged. please check file and try again later -_-\n",outPutString);
     }
 
     @Test
@@ -228,9 +221,9 @@ public class WordCounterTest {
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile("zero.csv");
 
-        WordCounter.printProgramOutput(wordFile);
+        String outPutString = WordCounter.getProgramOutput(wordFile);
 
-        assertEquals("\nCan't find file, please enter a valid path and try again -_-\n\n", outContent.toString());
+        assertEquals("\nCan't find file, please enter a valid path and try again -_-\n", outPutString);
     }
 
     @Test
@@ -239,9 +232,9 @@ public class WordCounterTest {
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile("'\'zero.txt");
 
-        WordCounter.printProgramOutput(wordFile);
+        String outPutString = WordCounter.getProgramOutput(wordFile);
 
-        assertEquals("\nDoes this file exist? please enter a valid path and try again -_-\n\n", outContent.toString());
+        assertEquals("\nDoes this file exist? please enter a valid path and try again -_-\n", outPutString);
     }
 
     @Test
@@ -251,9 +244,9 @@ public class WordCounterTest {
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 
-        WordCounter.printProgramOutput(wordFile);
+        String outPutString = WordCounter.getProgramOutput(wordFile);
 
-        assertEquals("\nSorry! this file contains no valid words O_O\n\n", outContent.toString());
+        assertEquals("\nSorry! this file contains no valid words O_O: 0", outPutString);
     }
 
     @Test
@@ -263,9 +256,9 @@ public class WordCounterTest {
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 
-        WordCounter.printProgramOutput(wordFile);
+        String outPutString = WordCounter.getProgramOutput(wordFile);
 
-        assertEquals("\nSorry! this file contains no valid words O_O\n\n", outContent.toString());
+        assertEquals("\nSorry! this file contains no valid words O_O: 0", outPutString);
     }
 
     @Test
@@ -275,9 +268,9 @@ public class WordCounterTest {
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 
-        WordCounter.printProgramOutput(wordFile);
+        String outPutString = WordCounter.getProgramOutput(wordFile);
 
-        assertEquals("\nSorry! this file contains no valid words O_O\n\n", outContent.toString());
+        assertEquals("\nSorry! this file contains no valid words O_O: 0", outPutString);
     }
 
     private String getFilePath(String fileName) {

@@ -24,7 +24,7 @@ public class CSVWordFileImpl implements WordFile {
             String[] nextLine;
 
             if (reader.readNext() == null) {
-                System.out.println("\nSorry! this file contains no valid words O_O\n");
+                wordMap.put("Sorry! this file contains no valid words O_O", 0l);
             }
             while ((nextLine = reader.readNext()) != null) {
                     for (String csvLine : nextLine) {

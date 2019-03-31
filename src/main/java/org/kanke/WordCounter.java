@@ -1,6 +1,5 @@
 package org.kanke;
 
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.kanke.services.WordFile;
@@ -10,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 
 public class WordCounter {
@@ -27,37 +27,43 @@ public class WordCounter {
         String fileName = scan.next();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 
-        printProgramOutput(wordFile);
+        String outputString = getProgramOutput(wordFile);
+
+        System.out.println(outputString);
 
     }
 
-    static void printProgramOutput(WordFile wordFile) {
+    static String getProgramOutput(WordFile wordFile) {
+        String output;
+
         try {
-            wordFile.countWords().entrySet().stream()
+            output = wordFile.countWords().entrySet().stream()
                     .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                    .forEachOrdered(wordEntry -> System.out.println("\n" + wordEntry.getKey() + ": " + wordEntry.getValue()));
+                    .map(wordEntry -> "\n" + wordEntry.getKey() + ": " + wordEntry.getValue())
+                    .collect(Collectors.joining("\n"));
         } catch (NoSuchFileException ex) {
+            output = "\nDoes this file exist? please enter a valid path and try again -_-\n";
 
             //add logger to file
-
             logger.error(ex);
-            System.out.println("\nDoes this file exist? please enter a valid path and try again -_-\n");
         } catch (FileNotFoundException ex) {
+            output = "\nCan't find file, please enter a valid path and try again -_-\n";
 
             //add logger to file
             logger.error(ex);
-            System.out.println("\nCan't find file, please enter a valid path and try again -_-\n");
         } catch (IOException ex) {
+            output = "\nProblems reading from file, the error has been logged. please check file and try again later -_-\n";
 
             //add logger to file
             logger.error(ex);
-            System.out.println("\nProblems reading from file, the error has been logged. please check file and try again later -_-\n");
         } catch (IllegalArgumentException ex) {
+            output = "Unsupported file type -_- ";
 
             //add logger to file
             logger.error(ex);
-            System.out.println("Unsupported file type -_- ");
         }
+
+        return output;
     }
 }
 

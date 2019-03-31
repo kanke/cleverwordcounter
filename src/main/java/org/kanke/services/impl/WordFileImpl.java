@@ -36,7 +36,7 @@ public class WordFileImpl implements WordFile {
         Map<String, Long> wordToFrequencyCount = new HashMap<>();
 
         if (words.isEmpty()) {
-            System.out.println("\nSorry! this file contains no valid words O_O\n");
+            wordToFrequencyCount.put("Sorry! this file contains no valid words O_O", 0l);
         } else {
             wordToFrequencyCount = words.stream().collect(groupingBy(group -> group, counting()));
         }
