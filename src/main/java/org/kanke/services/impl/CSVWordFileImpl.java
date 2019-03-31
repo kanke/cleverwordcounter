@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CSVWordFile implements WordFile {
+public class CSVWordFileImpl implements WordFile {
 
     private String fileName;
 
-    public CSVWordFile(String fileName) {
+    public CSVWordFileImpl(String fileName) {
         this.fileName = fileName;
     }
 
@@ -24,7 +24,7 @@ public class CSVWordFile implements WordFile {
             String[] nextLine;
 
             if (reader.readNext() == null) {
-                System.out.println("\nSorry! this csv file is empty O_O \n");
+                System.out.println("\nSorry! this file contains no valid words O_O\n");
             }
             while ((nextLine = reader.readNext()) != null) {
                     for (String csvLine : nextLine) {

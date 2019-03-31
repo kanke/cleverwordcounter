@@ -53,6 +53,29 @@ public class WordCounterTest {
     }
 
     @Test
+    public void shouldCountNumberOfWordsInXMLFile() {
+
+        String fileName = getFilePath("pom.xml");
+        WordFileFactory wordFileFactory = new WordFileFactory();
+        WordFile wordFile = wordFileFactory.getWordFile(fileName);
+
+        WordCounter.printProgramOutput(wordFile);
+
+        assertTrue(outContent.toString().contains("\n" +
+                "groupId: 24\n" +
+                "\n" +
+                "artifactId: 24\n" +
+                "\n" +
+                "version: 23\n" +
+                "\n" +
+                "dependency: 19\n" +
+                "\n" +
+                "org: 14\n" +
+                "\n" +
+                "maven: 10"));
+    }
+
+    @Test
     public void shouldCountNumberOfWordsInCSVFileWithSpecialCharacters() {
 
         String fileName = getFilePath("specialcharacters.csv");
@@ -73,7 +96,8 @@ public class WordCounterTest {
 
         WordCounter.printProgramOutput(wordFile);
 
-        assertTrue(outContent.toString().contains("SGML: 3\n" +
+        assertTrue(outContent.toString().contains("\n" +
+                "SGML: 3\n" +
                 "\n" +
                 "markup: 3\n" +
                 "\n" +
@@ -81,9 +105,11 @@ public class WordCounterTest {
                 "\n" +
                 "glossary: 2\n" +
                 "\n" +
+                "GlossSee: 1\n" +
+                "\n" +
                 "A: 1\n" +
                 "\n" +
-                "GlossSee: 1"));
+                "DocBook: 1"));
     }
 
     @Test
@@ -161,7 +187,7 @@ public class WordCounterTest {
 
         exception.expect(IllegalArgumentException.class);
 
-        String fileName = getFilePath("sad.xml");
+        String fileName = getFilePath("sad.html");
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
 
@@ -179,7 +205,7 @@ public class WordCounterTest {
 
         WordCounter.printProgramOutput(wordFile);
 
-        assertEquals("\nError parsing file, the error has been logged. please check file and try again later -_-\n\n", outContent.toString());
+        assertEquals("\nSorry! this file contains no valid words O_O\n\n", outContent.toString());
     }
 
     @Test
@@ -225,7 +251,7 @@ public class WordCounterTest {
 
         WordCounter.printProgramOutput(wordFile);
 
-        assertEquals("\nSorry! this txt file is empty O_O \n\n", outContent.toString());
+        assertEquals("\nSorry! this file contains no valid words O_O\n\n", outContent.toString());
     }
 
     @Test
@@ -237,7 +263,19 @@ public class WordCounterTest {
 
         WordCounter.printProgramOutput(wordFile);
 
-        assertEquals("\nSorry! this csv file is empty O_O \n\n", outContent.toString());
+        assertEquals("\nSorry! this file contains no valid words O_O\n\n", outContent.toString());
+    }
+
+    @Test
+    public void shouldNotCountNumberOfWordsForWrongEmptyXMLFile() {
+
+        String fileName = getFilePath("emptyxml.xml");
+        WordFileFactory wordFileFactory = new WordFileFactory();
+        WordFile wordFile = wordFileFactory.getWordFile(fileName);
+
+        WordCounter.printProgramOutput(wordFile);
+
+        assertEquals("\nSorry! this file contains no valid words O_O\n\n", outContent.toString());
     }
 
     private String getFilePath(String fileName) {

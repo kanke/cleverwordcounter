@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
 
-public class TxtWordFile implements WordFile {
+public class WordFileImpl implements WordFile {
 
     private String fileName;
 
-    public TxtWordFile(String fileName) {
+    public WordFileImpl(String fileName) {
         this.fileName = fileName;
     }
 
@@ -36,7 +36,7 @@ public class TxtWordFile implements WordFile {
         Map<String, Long> wordToFrequencyCount = new HashMap<>();
 
         if (words.isEmpty()) {
-            System.out.println("\nSorry! this txt file is empty O_O \n");
+            System.out.println("\nSorry! this file contains no valid words O_O\n");
         } else {
             wordToFrequencyCount = words.stream().collect(groupingBy(group -> group, counting()));
         }

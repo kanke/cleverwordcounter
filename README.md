@@ -34,9 +34,11 @@ The results are consistent between two files which contain the exact same words 
 
 > * JSON
 
+> * XML
+
 ##  Future Supported Files, crossing fingers! ##
 
-> * XML
+> * PDF
 
 > * HTML
 
