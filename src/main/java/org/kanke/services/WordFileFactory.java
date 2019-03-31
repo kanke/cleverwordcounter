@@ -23,6 +23,6 @@ public class WordFileFactory {
                 return new WordFileImpl(fileName);
         }
 
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException("Unsupported file type -_-");
     }
 }

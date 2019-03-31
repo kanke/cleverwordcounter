@@ -1,20 +1,17 @@
 package org.kanke;
 
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 import org.kanke.services.WordFile;
 import org.kanke.services.WordFileFactory;
 
 import java.io.File;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class WordCounterTest {
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     @Test
     public void shouldCountNumberOfWordsInCSVFile() {
@@ -135,7 +132,6 @@ public class WordCounterTest {
                 "samuel: 2\n" +
                 "\n" +
                 "Jackson: 2", outPutString);
-
     }
 
     @Test
@@ -145,9 +141,7 @@ public class WordCounterTest {
         String fileName = getFilePath("actor.txt");
         WordFileFactory wordFileFactory = new WordFileFactory();
         WordFile wordFile = wordFileFactory.getWordFile(fileName);
-
         String outPutString = WordCounter.getProgramOutput(wordFile);
-
         String expectedFile1 = "\nL: 6\n" +
                 "\n" +
                 "Fire: 2\n" +
@@ -155,15 +149,12 @@ public class WordCounterTest {
                 "samuel: 2\n" +
                 "\n" +
                 "Jackson: 2";
-
         assertEquals(expectedFile1, outPutString);
 
         String fileName2 = getFilePath("actor2.txt");
         WordFileFactory wordFileFactory2 = new WordFileFactory();
         WordFile wordFile2 = wordFileFactory2.getWordFile(fileName2);
-
         String outPutString2 = WordCounter.getProgramOutput(wordFile2);
-
         String expectedFile2 = "\nL: 6\n" +
                 "\n" +
                 "Fire: 2\n" +
@@ -171,7 +162,6 @@ public class WordCounterTest {
                 "samuel: 2\n" +
                 "\n" +
                 "Jackson: 2";
-
         assertEquals(expectedFile2, outPutString2);
 
         assertEquals(expectedFile1, expectedFile2);
@@ -180,19 +170,18 @@ public class WordCounterTest {
     @Test
     public void shouldThrowIllegalArgumentErrorForUnsupportedFile() {
 
-        exception.expect(IllegalArgumentException.class);
+        try {
+            String fileName = getFilePath("sad.html");
+            WordFileFactory wordFileFactory = new WordFileFactory();
+            wordFileFactory.getWordFile(fileName);
 
-        String fileName = getFilePath("sad.html");
-        WordFileFactory wordFileFactory = new WordFileFactory();
-        WordFile wordFile = wordFileFactory.getWordFile(fileName);
-
-        String outPutString = WordCounter.getProgramOutput(wordFile);
-
-        assertEquals("Unsupported file type -_- \n", outPutString);
+        } catch (IllegalArgumentException ex) {
+            assertThat(ex.getMessage(), containsString("Unsupported file type -_-"));
+        }
     }
 
     @Test
-    public void shouldNOTCountNumberOfWordsInJSONFileWithSpecialCharacters() {
+    public void shouldNotCountNumberOfWordsInJSONFileWithSpecialCharacters() {
 
         String fileName = getFilePath("specialcharacters.json");
         WordFileFactory wordFileFactory = new WordFileFactory();
