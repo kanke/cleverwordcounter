@@ -20,7 +20,7 @@ public class WordCounter {
     public static void main(String[] args) {
 
         System.out.println("\n\n***** ^_^ Welcome to Clever Word Counter ^_^ ******\n");
-        System.out.println("Kindly enter a file path below to continue, supported files are txt, csv, xml= and json #^_^# :");
+        System.out.println("Kindly enter a file path below to continue, supported files are txt, csv, xml and json #^_^# :");
 
         WordFileFactory wordFileFactory = new WordFileFactory();
         Scanner scan = new Scanner(System.in);
