@@ -43,6 +43,20 @@ The results are consistent between two files which contain the exact same words 
 > * HTML
 
 ##  Original Problem Statement ##
+
 [Link to problem statement/requirements doc](https://docs.google.com/document/d/1M-adS6W6YRGPhUmFRmCi3-4l5tYjjJs1I1CTyVorFHg/edit?usp=sharing)
+
+##  Assumptions ##
+
+> * Empty space -> “” is not a word
+
+> * Only English language words supported
+
+> * Multiple files support
+
+> * Delimiters and non letters are not words
+
+> * CSV files reader follows RFC4180 standard on how to formatted, delimited, and escaped
+
 
 ##  Common Errors With Running File and How to Solve Them ##
