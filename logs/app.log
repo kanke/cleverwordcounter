@@ -1,0 +1,4 @@
+2019-04-01 07:35:19,135 ERROR o.k.WordCounter [main] java.io.FileNotFoundException: zero.csv (No such file or directory)
+2019-04-01 07:35:19,172 ERROR o.k.WordCounter [main] java.nio.file.NoSuchFileException: ''zero.txt
+2019-04-01 07:35:19,267 ERROR o.k.WordCounter [main] java.io.IOException: Unterminated quoted field at end of CSV line. Beginning of lost text: [t" %varA%
+]
