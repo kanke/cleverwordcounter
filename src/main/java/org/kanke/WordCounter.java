@@ -28,8 +28,8 @@ public class WordCounter {
 
         try {
             WordFile wordFile = wordFileFactory.getWordFile(fileName);
-            String outputString = getProgramOutput(wordFile);
-            System.out.println(outputString);
+            String userOutputString = getProgramOutput(wordFile);
+            System.out.println(userOutputString);
         } catch (IllegalArgumentException ex) {
             System.out.println("\nUnsupported file type -_- \n");
             logger.error(ex);
@@ -39,29 +39,29 @@ public class WordCounter {
     }
 
     static String getProgramOutput(WordFile wordFile) {
-        String output;
+        String userOutput;
         try {
-            output = wordFile.countWords().entrySet().stream()
+            userOutput = wordFile.countWords().entrySet().stream()
                     .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                     .map(wordEntry -> "\n" + wordEntry.getKey() + ": " + wordEntry.getValue())
                     .collect(Collectors.joining("\n"));
         } catch (NoSuchFileException ex) {
-            output = "\nDoes this file exist? please enter a valid path and try again -_-\n";
+            userOutput = "\nDoes this file exist? please enter a valid path and try again -_-\n";
 
             //log error messages to file
             logger.error(ex);
         } catch (FileNotFoundException ex) {
-            output = "\nCan't find file, please enter a valid path and try again -_-\n";
+            userOutput = "\nCan't find file, please enter a valid path and try again -_-\n";
 
             //log error messages to file
             logger.error(ex);
         } catch (IOException ex) {
-            output = "\nProblems reading from file, the error has been logged. please check file and try again later -_-\n";
+            userOutput = "\nProblems reading from file, the error has been logged. please check file and try again later -_-\n";
 
             //log error messages to file
             logger.error(ex);
         }
-        return output;
+        return userOutput;
     }
 }
 

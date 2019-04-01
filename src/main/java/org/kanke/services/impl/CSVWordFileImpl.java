@@ -39,6 +39,7 @@ public class CSVWordFileImpl implements WordFile {
                     }
 
             }
+            reader.close();
 
         return wordMap;
     }
