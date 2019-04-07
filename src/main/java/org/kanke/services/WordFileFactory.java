@@ -13,6 +13,7 @@ public class WordFileFactory {
 
     public WordFile getWordFile(String fileName) throws IllegalArgumentException {
 
+        //Can use strategy pattern here
         String fileExtension = FilenameUtils.getExtension(fileName);
         switch (fileExtension) {
             case CSV:

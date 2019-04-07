@@ -26,6 +26,7 @@ public class WordFileImpl implements WordFile {
     @Override
     public Map<String, Long> countWords() throws IOException {
 
+        //Potential problem with extremely large files because of 'Bytes'
         String contents = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
 
         //Strip into words, non letters and delimiters and filter out spaces

@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class WordCounterTest {
 
+    //Better way to test, perhaps use a BDD framework?
     @Test
     public void shouldCountNumberOfWordsInCSVFile() {
 
